@@ -1,5 +1,4 @@
 public class IndividualCustomer extends Customer {
-
     public IndividualCustomer(String name, String nationalId) {
         super(name, nationalId);
     }
