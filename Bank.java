@@ -3,8 +3,13 @@ import java.util.Map;
 
 public class Bank {
     private Map<String, Account> accounts = new HashMap<>();
+    private Map<String, Customer> customers = new HashMap<>();
 
-    public void openAccount(String type, String accountNumber, double initialDeposit) {
+    public void registerCustomer(Customer customer) {
+        customers.put(customer.getIdentifier(), customer);
+    }
+
+    public void openAccount(Customer customer, String type, String accountNumber, double initialDeposit) {
         Account account;
         switch (type.toLowerCase()) {
             case "savings" -> account = new SavingsAccount(accountNumber, initialDeposit);
@@ -13,10 +18,15 @@ public class Bank {
             default -> throw new IllegalArgumentException("Invalid account type.");
         }
         accounts.put(accountNumber, account);
+        registerCustomer(customer);
     }
 
     public Account getAccount(String accountNumber) {
         return accounts.get(accountNumber);
+    }
+
+    public Customer getCustomer(String identifier) {
+        return customers.get(identifier);
     }
 
     public void processMonthlyInterest() {
