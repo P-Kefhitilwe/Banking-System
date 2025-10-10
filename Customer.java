@@ -1,12 +1,10 @@
-public class Customer {
-    private String name;
-    private String identifier; // National ID or Registration Number
-    private boolean isCompany;
+public abstract class Customer {
+    protected String name;
+    protected String identifier; // ID or registration number
 
-    public Customer(String name, String identifier, boolean isCompany) {
+    public Customer(String name, String identifier) {
         this.name = name;
         this.identifier = identifier;
-        this.isCompany = isCompany;
     }
 
     public String getName() {
@@ -17,12 +15,10 @@ public class Customer {
         return identifier;
     }
 
-    public boolean isCompany() {
-        return isCompany;
-    }
+    public abstract String getCustomerType();
 
     @Override
     public String toString() {
-        return (isCompany ? "Company: " : "Individual: ") + name + " (" + identifier + ")";
+        return getCustomerType() + ": " + name + " (" + identifier + ")";
     }
 }
