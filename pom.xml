@@ -25,7 +25,8 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
-                    <exclude>**/BankingApp.java</exclude>
+                    <!-- Prevent accidental Java source files placed in resources from shadowing compiled classes -->
+                    <exclude>**/*.java</exclude>
                 </excludes>
             </resource>
         </resources>
@@ -35,13 +36,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
-                <configuration>
-                    <release>21</release>
-                    <!-- By default exclude the JavaFX UI package so the project builds on machines without JavaFX. -->
-                    <excludes>
-                        <exclude>banking/ui/**</exclude>
-                    </excludes>
-                </configuration>
+                    <configuration>
+                        <release>21</release>
+                        <!-- Compile all sources by default; UI sources are included when building with -P ui or when JavaFX is present. -->
+                    </configuration>
             </plugin>
 
             <!-- Create an executable jar (headless by default). The profile 'ui' will override Main-Class when enabled. -->
@@ -94,6 +92,10 @@
     <profiles>
         <profile>
             <id>ui</id>
+            <activation>
+                <!-- Build UI by default so the project compiles and runs the GUI without extra flags -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <javafx.version>21</javafx.version>
                 <!-- Set the main class for the shaded jar when building the UI profile -->
