@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!-- FX Controller will be banking.ui.view.TransactionAccountView (to be created in Java) -->
+<VBox spacing="15" alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="banking.ui.view.TransactionAccountView"
+      style="-fx-background-color: #e8f5e9; -fx-padding: 20; -fx-border-color: #a5d6a7;">
+
+    <Label fx:id="accountTypeLabel" text="Investment/Cheque Account Details" style="-fx-text-fill: #1b5e20; -fx-font-weight: bold;">
+        <font><Font size="22.0" /></font>
+    </Label>
+    
+    <GridPane hgap="10" vgap="5">
+        <Label text="Account Number:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label fx:id="accountNumberLabel" text="[TRN-XXX]" style="-fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        
+        <Label text="Current Balance:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label fx:id="currentBalanceLabel" text="BWP 0.00" style="-fx-font-weight: bold; -fx-text-fill: #2e7d32;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    </GridPane>
+
+    <HBox spacing="20">
+        <!-- Deposit Section -->
+        <VBox spacing="5" style="-fx-border-color: #c8e6c9; -fx-border-width: 2px; -fx-padding: 10; -fx-background-color: #f1f8e9;">
+            <Label text="Deposit Funds:" style="-fx-font-weight: bold;" />
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="depositAmountField" promptText="Enter amount" />
+                <Button fx:id="depositButton" text="Deposit" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" />
+            </HBox>
+        </VBox>
+
+        <!-- Withdrawal Section -->
+        <VBox spacing="5" style="-fx-border-color: #ffccbc; -fx-border-width: 2px; -fx-padding: 10; -fx-background-color: #fff3e0;">
+            <Label text="Withdraw Funds:" style="-fx-font-weight: bold;" />
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="withdrawAmountField" promptText="Enter amount" />
+                <Button fx:id="withdrawButton" text="Withdraw" style="-fx-background-color: #FF5722; -fx-text-fill: white;" />
+            </HBox>
+        </VBox>
+    </HBox>
+
+    <Label text="Transaction History:" />
+    <TextArea fx:id="historyArea" editable="false" prefHeight="150" wrapText="true" />
+    
+    <Button fx:id="backToSelectionButton" text="Back to Account Selection" style="-fx-background-color: #795548; -fx-text-fill: white;" maxWidth="Infinity" />
+</VBox>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!-- FX Controller will be banking.ui.view.CustomerCreationView (to be created in Java) -->
+<VBox spacing="10" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="banking.ui.view.CustomerCreationView" 
+      style="-fx-background-color: #ffffff; -fx-padding: 20; -fx-border-color: #ccc;">
+      
+    <Label text="New Customer Registration" style="-fx-text-fill: #333333; -fx-font-weight: bold;">
+        <font><Font size="20.0" /></font>
+    </Label>
+    
+    <Label text="Customer Type:" />
+    <ChoiceBox fx:id="typeChoiceBox" maxWidth="Infinity" />
+    
+    <Label fx:id="nameLabel" text="Name / Company Name:" />
+    <TextField fx:id="nameField" promptText="Enter Name or Company Name" />
+    
+    <Label fx:id="identifierLabel" text="National ID:" />
+    <TextField fx:id="identifierField" promptText="Enter National ID or Registration Number" />
+    
+    <Label text="Initial Account Type:" />
+    <ChoiceBox fx:id="accountTypeChoiceBox" maxWidth="Infinity" />
+
+    <Label text="Initial Deposit (Minimum Required):" />
+    <TextField fx:id="initialDepositField" promptText="e.g., 50.00 BWP" />
+    
+    <Button fx:id="registerAndOpenButton" text="Register &amp; Open Account" style="-fx-background-color: #FF5722; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-size: 14px; -fx-cursor: hand;" />
+    
+    <Button fx:id="backToLoginButton" text="Back to Login" style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-cursor: hand;" />
+</VBox>
