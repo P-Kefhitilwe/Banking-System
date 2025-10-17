@@ -13,12 +13,22 @@
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <!-- Default main class for the shaded jar; overridden by the 'ui' profile -->
+        <main.class>banking.Main</main.class>
     <!-- GUI/JavaFX is optional. Use the 'ui' profile to enable JavaFX dependencies and build the GUI jar. -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <shade.plugin.version>3.5.0</shade.plugin.version>
     </properties>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/BankingApp.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
         <plugins>
             <!-- Compile and run modern Java -->
             <plugin>
@@ -49,7 +59,7 @@
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>banking.Main</mainClass>
+                                    <mainClass>${main.class}</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -86,6 +96,8 @@
             <id>ui</id>
             <properties>
                 <javafx.version>21</javafx.version>
+                <!-- Set the main class for the shaded jar when building the UI profile -->
+                <main.class>banking.ui.BankingApp</main.class>
             </properties>
             <build>
                 <plugins>
@@ -115,13 +127,11 @@
                     <groupId>org.openjfx</groupId>
                     <artifactId>javafx-controls</artifactId>
                     <version>${javafx.version}</version>
-                    <classifier>win-x64</classifier>
                 </dependency>
                 <dependency>
                     <groupId>org.openjfx</groupId>
                     <artifactId>javafx-fxml</artifactId>
                     <version>${javafx.version}</version>
-                    <classifier>win-x64</classifier>
                 </dependency>
             </dependencies>
         </profile>

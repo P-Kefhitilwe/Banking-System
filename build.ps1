@@ -18,8 +18,13 @@ if ($LASTEXITCODE -ne 0) { Write-Error "Compilation failed"; exit $LASTEXITCODE 
 
 Write-Host "Packaging jar..."
 New-Item -ItemType Directory -Path target\lib | Out-Null
+$manifest = "Main-Class: banking.Main`r`n"
+$manifestPath = Join-Path -Path $PWD -ChildPath "target\classes\META-INF\MANIFEST.MF"
+New-Item -ItemType Directory -Path (Split-Path $manifestPath) -Force | Out-Null
+[System.IO.File]::WriteAllText($manifestPath,$manifest)
 Push-Location target\classes
-jar --create --file ..\banking-system.jar -C . .
+if (Test-Path ..\banking-system.jar) { Remove-Item ..\banking-system.jar }
+Compress-Archive -Path * -DestinationPath ..\banking-system.jar -Force
 Pop-Location
 
 Write-Host "Running application..."

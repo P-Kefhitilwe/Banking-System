@@ -19,6 +19,18 @@ To enable the JavaFX UI:
 2. Move UI Java files from `src/main/resources/banking/ui/java/` back to `src/main/java/banking/ui/`.
 3. Install Maven (or add Maven Wrapper) and run with `mvn -DskipTests=true exec:java -Dexec.mainClass="banking.ui.BankingApp"`.
 
+Using the Maven Wrapper (no global Maven needed):
+
+On Windows PowerShell:
+
+```powershell
+.\mvnw.cmd -v       # downloads the wrapper jar and shows Maven version
+.\mvnw.cmd -DskipTests=true package   # builds the fat jar (headless)
+.\mvnw.cmd -P ui -DskipTests=true package  # builds the UI-enabled jar (requires JavaFX)
+```
+
+If you run the `ui` profile, Maven will include OpenJFX (JavaFX) platform jars and the resulting jar will use `banking.ui.BankingApp` as the Main-Class.
+
 Using Maven (recommended):
 
 - Package the headless runnable jar (default):
