@@ -1,4 +1,4 @@
-package banking;
+package banking.model;
 
 /**
  * Interface for all accounts that earn interest.

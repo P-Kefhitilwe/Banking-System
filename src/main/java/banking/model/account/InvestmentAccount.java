@@ -1,4 +1,6 @@
-package banking;
+package banking.model.account;
+
+import banking.model.InterestBearing;
 
 /**
  * Investment account — allows withdrawals and earns higher interest.

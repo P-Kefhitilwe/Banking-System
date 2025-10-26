@@ -1,4 +1,4 @@
-package banking;
+package banking.model.account;
 
 /**
  * Cheque account — allows withdrawals, no interest.

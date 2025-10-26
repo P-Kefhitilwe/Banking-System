@@ -1,4 +1,4 @@
-package banking;
+package banking.model.customer;
 
 /**
  * Represents an individual customer identified by National ID.

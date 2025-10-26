@@ -9,40 +9,68 @@
     <artifactId>banking-system</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Banking System (OOAD)</name>
+    <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <!-- Default main class for the shaded jar; overridden by the 'ui' profile -->
-        <main.class>banking.Main</main.class>
-    <!-- GUI/JavaFX is optional. Use the 'ui' profile to enable JavaFX dependencies and build the GUI jar. -->
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <shade.plugin.version>3.5.0</shade.plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <javafx.version>17.0.2</javafx.version>
+        <main.class>banking.ui.BankingApp</main.class>
+        <shade.plugin.version>3.3.0</shade.plugin.version>
     </properties>
+
+    <dependencies>
+        <!-- JavaFX Dependencies -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        
+        <!-- Add other dependencies as needed -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.8.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <excludes>
-                    <!-- Prevent accidental Java source files placed in resources from shadowing compiled classes -->
-                    <exclude>**/*.java</exclude>
-                </excludes>
+                <includes>
+                    <include>**/*.fxml</include>
+                    <include>**/*.css</include>
+                    <include>**/*.properties</include>
+                </includes>
             </resource>
         </resources>
+        
         <plugins>
-            <!-- Compile and run modern Java -->
+            <!-- Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
-                    <configuration>
-                        <release>21</release>
-                        <!-- Compile all sources by default; UI sources are included when building with -P ui or when JavaFX is present. -->
-                    </configuration>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <compilerArgs>
+                        <arg>--add-exports</arg>
+                        <arg>javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</arg>
+                    </compilerArgs>
+                </configuration>
             </plugin>
 
-            <!-- Create an executable jar (headless by default). The profile 'ui' will override Main-Class when enabled. -->
+            <!-- Shade Plugin for creating executable JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -77,23 +105,31 @@
         </plugins>
     </build>
 
-    <!-- Optional: Dependencies for future work -->
-    <dependencies>
-                <!-- JavaFX dependencies intentionally removed for headless build. Re-add if you enable the UI. -->
-        <!-- Unit testing (JUnit 5) -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.11.0</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <!-- Dependencies are defined above -->
 
     <profiles>
         <profile>
+            <id>jlink</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-maven-plugin</artifactId>
+                        <version>0.0.8</version>
+                        <configuration>
+                            <mainClass>${main.class}</mainClass>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
             <id>ui</id>
             <activation>
-                <!-- Build UI by default so the project compiles and runs the GUI without extra flags -->
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>

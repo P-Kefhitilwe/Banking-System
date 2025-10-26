@@ -1,5 +1,9 @@
-package controller;
+package banking.controller;
 
+import banking.model.customer.Customer;
+import banking.service.UserService;
+import banking.service.AuthService;
+import banking.service.AppContext;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,8 +14,6 @@ import javafx.scene.control.Alert;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import service.UserService;
-import model.User;
 
 public class RegisterController {
     @FXML private TextField usernameField;

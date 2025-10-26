@@ -1,4 +1,13 @@
-package banking;
+package banking.model;
+
+import banking.model.customer.Customer;
+import banking.model.customer.IndividualCustomer;
+import banking.model.customer.CompanyCustomer;
+import banking.model.account.Account;
+import banking.model.account.ChequeAccount;
+import banking.model.account.SavingsAccount;
+import banking.model.account.InvestmentAccount;
+import banking.model.InterestBearing;
 
 import java.util.HashMap;
 import java.util.Map;

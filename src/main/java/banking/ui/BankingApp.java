@@ -2,51 +2,89 @@ package banking.ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 /**
  * The main JavaFX application launcher. This class initializes the primary stage
  * and loads the initial view (LoginPage.fxml).
- * This class belongs to the Boundary Layer.
  */
 public class BankingApp extends Application {
-
-    private static final int INITIAL_WIDTH = 400;
-    private static final int INITIAL_HEIGHT = 450; // Increased height for better fit
+    
+    public static final String APP_TITLE = "Banking Application";
+    private static final int INITIAL_WIDTH = 1000;
+    private static final int INITIAL_HEIGHT = 700;
+    private static Stage primaryStage;
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage stage) {
+        primaryStage = stage;
+        showLoginView();
+    }
+    
+    /**
+     * Shows the login view.
+     */
+    public static void showLoginView() {
         try {
-            // Load the initial scene defined in LoginPage.fxml
-            // The resource path is relative to the resources folder (src/main/resources)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/banking/ui/LoginPage.fxml"));
-            VBox root = loader.load();
-
+            FXMLLoader loader = new FXMLLoader(
+                BankingApp.class.getResource("/banking/ui/LoginPage.fxml")
+            );
+            Parent root = loader.load();
+            
             Scene scene = new Scene(root, INITIAL_WIDTH, INITIAL_HEIGHT);
-            
-            // Set up the stage (window)
-            primaryStage.setTitle("Banking System - Customer Login");
+            primaryStage.setTitle(APP_TITLE);
             primaryStage.setScene(scene);
-            primaryStage.setResizable(false); // Often good practice for simple forms
+            primaryStage.setResizable(true);
+            primaryStage.centerOnScreen();
             primaryStage.show();
-            
-            // Note: The main logic (Controller) will be handled in Week 5,
-            // where the controller will be injected and initialized.
         } catch (IOException e) {
-            System.err.println("Error loading FXML file: /banking/ui/LoginPage.fxml");
+            showError("Error loading login view", e);
+        }
+    }
+    
+    /**
+     * Shows an error dialog with the specified message and exception details.
+     * 
+     * @param message The error message to display
+     * @param e The exception that caused the error (can be null)
+     */
+    public static void showError(String message, Exception e) {
+        System.err.println("ERROR: " + message);
+        if (e != null) {
             e.printStackTrace();
         }
+        
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("An error occurred");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     /**
-     * Standard main method to launch the JavaFX application.
-     * @param args Command line arguments.
+     * Returns the primary stage.
+     * 
+     * @return The primary stage
+     */
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    /**
+     * Main method to launch the application.
+     * 
+     * @param args Command line arguments
      */
     public static void main(String[] args) {
-        launch(args);
+        try {
+            launch(args);
+        } catch (Exception e) {
+            showError("A critical error occurred", e);
+        }
     }
 }

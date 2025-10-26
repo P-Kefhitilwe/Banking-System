@@ -1,5 +1,10 @@
-package controller;
+package banking.controller;
 
+import banking.model.account.Account;
+import banking.model.Transaction;
+import banking.service.AccountService;
+import banking.service.TransactionService;
+import banking.service.AppContext;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,10 +18,6 @@ import javafx.scene.control.TableColumn;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import javafx.scene.Node;
-import model.Account;
-import model.Transaction;
-import service.AccountService;
-import service.TransactionService;
 import java.util.Date;
 
 public class TransactionController {
@@ -30,8 +31,8 @@ public class TransactionController {
     @FXML private TableColumn<Transaction, Double> amountColumn;
     @FXML private TableColumn<Transaction, String> accountColumn;
 
-    private AccountService accountService = service.AppContext.getInstance().getAccountService();
-    private TransactionService transactionService = service.AppContext.getInstance().getTransactionService();
+    private AccountService accountService = AppContext.getInstance().getAccountService();
+    private TransactionService transactionService = AppContext.getInstance().getTransactionService();
 
     @FXML
     private void initialize() {

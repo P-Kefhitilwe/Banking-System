@@ -1,4 +1,4 @@
-package banking;
+package banking.model.customer;
 
 /**
  * Represents a company customer identified by registration number.

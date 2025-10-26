@@ -1,4 +1,6 @@
-package banking;
+package banking.model.account;
+
+import banking.model.InterestBearing;
 
 /**
  * Savings account — no withdrawals, earns monthly interest.

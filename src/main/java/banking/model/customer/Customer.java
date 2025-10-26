@@ -1,4 +1,4 @@
-package banking;
+package banking.model.customer;
 
 /**
  * Abstract Customer superclass — base for Individual and Company.

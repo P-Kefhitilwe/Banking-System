@@ -1,4 +1,4 @@
-package banking;
+package banking.model.account;
 
 import java.util.ArrayList;
 import java.util.List;
