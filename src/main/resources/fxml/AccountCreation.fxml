@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<VBox xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="banking.controller.AccountCreationController"
+      spacing="24" styleClass="container" stylesheets="@../css/banking-styles.css"
+      prefWidth="900" prefHeight="750">
+
+    <VBox styleClass="card" spacing="24" maxWidth="600" alignment="CENTER">
+        <padding>
+            <Insets top="32" left="32" right="32" bottom="32"/>
+        </padding>
+
+        <Label text="Open New Account" styleClass="header-large"/>
+
+        <VBox spacing="16" prefWidth="500">
+            <VBox spacing="8">
+                <Label text="Account Type" style="-fx-font-weight: 600;"/>
+                <ComboBox fx:id="accountTypeCombo" prefWidth="500" promptText="Select account type"/>
+            </VBox>
+
+            <VBox spacing="8">
+                <Label text="Initial Deposit (BWP)" style="-fx-font-weight: 600;"/>
+                <TextField fx:id="initialDepositField" promptText="500.00" prefWidth="500" prefHeight="40"/>
+                <Label text="Minimum BWP 500 for Investment Account"
+                       style="-fx-font-size: 12px; -fx-text-fill: -fx-text-secondary;"/>
+            </VBox>
+
+            <VBox spacing="8">
+                <Label text="Branch" style="-fx-font-weight: 600;"/>
+                <TextField fx:id="branchField" promptText="Gaborone" prefWidth="500" prefHeight="40"/>
+            </VBox>
+
+            <!-- Cheque Account Fields -->
+            <VBox fx:id="chequeFieldsBox" spacing="16" visible="false" managed="false">
+                <Separator/>
+                <Label text="Employment Details (Cheque Account Only)" styleClass="header-small"/>
+
+                <VBox spacing="8">
+                    <Label text="Employer Name" style="-fx-font-weight: 600;"/>
+                    <TextField fx:id="employerNameField" promptText="Company Name" prefWidth="500" prefHeight="40"/>
+                </VBox>
+
+                <VBox spacing="8">
+                    <Label text="Employer Address" style="-fx-font-weight: 600;"/>
+                    <TextField fx:id="employerAddressField" promptText="Company Address" prefWidth="500" prefHeight="40"/>
+                </VBox>
+            </VBox>
+        </VBox>
+
+        <HBox spacing="12" alignment="CENTER">
+            <Button text="Create Account" onAction="#handleCreateAccount" prefWidth="200" prefHeight="45"/>
+            <Button text="Cancel" onAction="#handleCancel" styleClass="button-secondary" prefWidth="200" prefHeight="45"/>
+        </HBox>
+
+        <Label fx:id="messageLabel" wrapText="true" textAlignment="CENTER" maxWidth="500"/>
+    </VBox>
+</VBox>

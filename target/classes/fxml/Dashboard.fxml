@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="banking.controller.DashboardController"
+            stylesheets="@../css/banking-styles.css">
+
+    <!-- Top Navigation -->
+    <top>
+        <HBox styleClass="navbar" alignment="CENTER_LEFT" spacing="16">
+            <Label text="🏦 Banking System" styleClass="header-medium"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="welcomeLabel" text="Welcome, User" style="-fx-font-weight: 500;"/>
+            <Button text="Logout" onAction="#handleLogout" styleClass="button-secondary"/>
+        </HBox>
+    </top>
+
+    <!-- Main Content -->
+    <center>
+        <VBox spacing="24" styleClass="container">
+
+            <!-- Account Summary Cards -->
+            <HBox spacing="16">
+                <VBox styleClass="balance-card" spacing="8" HBox.hgrow="ALWAYS">
+                    <Label text="Total Balance" style="-fx-font-size: 14px; -fx-text-fill: rgba(255,255,255,0.9);"/>
+                    <Label fx:id="totalBalanceLabel" text="BWP 0.00" styleClass="balance-amount"/>
+                </VBox>
+
+                <VBox styleClass="card" spacing="8" HBox.hgrow="ALWAYS">
+                    <Label text="Total Accounts" style="-fx-font-size: 14px; -fx-text-fill: -fx-text-secondary;"/>
+                    <Label fx:id="accountCountLabel" text="0"
+                           style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: -fx-primary;"/>
+                </VBox>
+
+                <VBox styleClass="card" spacing="8" HBox.hgrow="ALWAYS" alignment="CENTER">
+                    <Label text="Interest Accounts" style="-fx-font-size: 14px; -fx-text-fill: -fx-text-secondary;"/>
+                    <Label fx:id="interestAccountsLabel" text="0"
+                           style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #10b981;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Accounts Table -->
+            <VBox spacing="16" styleClass="card">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <Label text="Your Accounts" styleClass="header-medium"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="💰 Apply Monthly Interest" onAction="#handleApplyInterest"
+                            style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-weight: 600; -fx-background-radius: 8; -fx-padding: 10 20;"
+                            prefHeight="40"/>
+                    <Button text="+ Open New Account" onAction="#handleOpenAccount"
+                            styleClass="button-success" prefHeight="40"/>
+                </HBox>
+
+                <TableView fx:id="accountsTable" prefHeight="350">
+                    <columns>
+                        <TableColumn fx:id="typeColumn" text="Account Type" prefWidth="150"/>
+                        <TableColumn fx:id="numberColumn" text="Account Number" prefWidth="180"/>
+                        <TableColumn fx:id="balanceColumn" text="Balance (BWP)" prefWidth="150"/>
+                        <TableColumn fx:id="branchColumn" text="Branch" prefWidth="150"/>
+                        <TableColumn fx:id="interestRateColumn" text="Interest Rate" prefWidth="120"/>
+                        <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="150"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

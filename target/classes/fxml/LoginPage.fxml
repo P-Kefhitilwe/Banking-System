@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="banking.controller.LoginController"
+            styleClass="container" stylesheets="@../css/banking-styles.css"
+            prefWidth="1000" prefHeight="700">
+
+    <!-- Center Login Card -->
+    <center>
+        <VBox alignment="CENTER" spacing="32" styleClass="card"
+              maxWidth="450" maxHeight="600">
+            <padding>
+                <Insets top="48" left="48" right="48" bottom="48"/>
+            </padding>
+
+            <!-- Header -->
+            <VBox alignment="CENTER" spacing="8">
+                <Label text="🏦" style="-fx-font-size: 48px;"/>
+                <Label text="Banking System" styleClass="header-large"/>
+                <Label text="Login to your account"
+                       style="-fx-text-fill: -fx-text-secondary; -fx-font-size: 15px;"/>
+            </VBox>
+
+            <!-- Login Form -->
+            <VBox spacing="20">
+                <VBox spacing="8">
+                    <Label text="Email Address" style="-fx-font-weight: 600; -fx-font-size: 14px;"/>
+                    <TextField fx:id="emailField"
+                               promptText="your.email@example.com"
+                               prefWidth="350" prefHeight="45"
+                               style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <VBox spacing="8">
+                    <Label text="Password" style="-fx-font-weight: 600; -fx-font-size: 14px;"/>
+                    <PasswordField fx:id="passwordField"
+                                   promptText="Enter your password"
+                                   prefWidth="350" prefHeight="45"
+                                   style="-fx-font-size: 14px;"/>
+                </VBox>
+            </VBox>
+
+            <!-- Buttons -->
+            <VBox spacing="12">
+                <Button text="Sign In" onAction="#handleLogin"
+                        prefWidth="350" prefHeight="45"
+                        style="-fx-font-size: 15px; -fx-font-weight: 600;"/>
+
+                <Button text="Create New Account" onAction="#handleRegister"
+                        styleClass="button-secondary"
+                        prefWidth="350" prefHeight="45"
+                        style="-fx-font-size: 15px;"/>
+            </VBox>
+
+            <!-- Error Message -->
+            <Label fx:id="errorLabel" styleClass="error-label" wrapText="true"
+                   textAlignment="CENTER" maxWidth="350"/>
+        </VBox>
+    </center>
+</BorderPane>
