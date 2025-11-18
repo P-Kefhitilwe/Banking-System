@@ -258,6 +258,29 @@ public class TransactionController {
                     return;
                 }
 
+                // Special handling for InvestmentAccount -- enforce minimum balance policy
+                if (selectedAccount instanceof InvestmentAccount investmentAccount) {
+                    String withdrawMessage = investmentAccount.withdrawWithMessage(amount);
+                    boolean withdrawSuccess = withdrawMessage.startsWith("Withdrawal successful");
+
+                    if (withdrawSuccess) {
+                        // Save transaction
+                        List<Transaction> accountTransactions = investmentAccount.getTransactions();
+                        if (!accountTransactions.isEmpty()) {
+                            Transaction lastTransaction = accountTransactions.get(accountTransactions.size() - 1);
+                            transactionDAO.addTransaction(lastTransaction);
+                        }
+                        accountDAO.updateAccount(investmentAccount);
+                        showSuccess("✅ " + withdrawMessage);
+                        updateAccountInfo(investmentAccount);
+                        loadTransactions(investmentAccount);
+                        amountField.clear();
+                    } else {
+                        showError("❌ " + withdrawMessage);
+                    }
+                    return;
+                }
+
                 Withdrawable withdrawableAccount = (Withdrawable) selectedAccount;
                 success = withdrawableAccount.withdraw(amount);
 
@@ -271,10 +294,14 @@ public class TransactionController {
                         transactionDAO.addTransaction(lastTransaction);
                     }
                     accountDAO.updateAccount(selectedAccount);
+                    showSuccess(message);
+                    updateAccountInfo(selectedAccount);
+                    loadTransactions(selectedAccount);
+                    amountField.clear();
                 } else {
                     showError("❌ Insufficient funds for withdrawal.");
-                    return;
                 }
+                return;
 
             } else if ("Transfer".equals(transactionType)) {
                 Account targetAccount = targetAccountCombo.getValue();
