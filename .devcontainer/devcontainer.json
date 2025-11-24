@@ -1,0 +1,20 @@
+{
+  "name": "Java with JavaFX",
+  "image": "mcr.microsoft.com/devcontainers/java:1-21-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21",
+      "installMaven": true
+    }
+  },
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y libgl1-mesa-glx libgtk-3-0 libxtst6 libxxf86vm1 libxrender1 x11-apps",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-maven"
+      ]
+    }
+  },
+  "forwardPorts": [8080]
+}
